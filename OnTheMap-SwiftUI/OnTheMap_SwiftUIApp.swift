@@ -7,11 +7,15 @@
 
 import SwiftUI
 
+fileprivate let loginService = LoginService()
+
 @main
 struct OnTheMap_SwiftUIApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      CoordinatorView()
+//      LoginView()
+//        .environmentObject(loginService)
     }
+  }
 }
