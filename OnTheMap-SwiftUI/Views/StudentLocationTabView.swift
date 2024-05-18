@@ -35,7 +35,7 @@ struct StudentLocationTabView: View {
         Text("Logout")
       },
       trailing: Button(action: {
-        print("refresh")
+        viewModel.loadStudentLocations()
       }) {
         Image(systemName: "arrow.clockwise")
       }

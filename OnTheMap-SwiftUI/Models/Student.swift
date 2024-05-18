@@ -14,7 +14,7 @@ struct StudentResponse: Decodable {
 }
 
 struct Student: Decodable, Identifiable {
-  var id = UUID()
+  let id = UUID()
   let firstName: String
   let lastName: String
   let mediaURL: String

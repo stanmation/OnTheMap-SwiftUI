@@ -27,6 +27,7 @@ class StudentLocationService: ObservableObject {
       let studentsResponse = try JSONDecoder().decode(StudentResponse.self, from: data)
       return studentsResponse.results
     } catch {
+      print(error)
       if (error as NSError).code ==
           -1009 {
         throw ServerError.noInternet
