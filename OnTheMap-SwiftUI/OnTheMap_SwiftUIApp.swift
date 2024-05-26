@@ -14,8 +14,6 @@ struct OnTheMap_SwiftUIApp: App {
   var body: some Scene {
     WindowGroup {
       CoordinatorView()
-//      LoginView()
-//        .environmentObject(loginService)
     }
   }
 }
