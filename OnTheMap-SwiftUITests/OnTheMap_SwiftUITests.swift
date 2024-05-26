@@ -6,31 +6,89 @@
 //
 
 import XCTest
+import Combine
 @testable import OnTheMap_SwiftUI
 
 final class OnTheMap_SwiftUITests: XCTestCase {
+  var viewModel: LoginViewModel!
+  var mockLoginService: MockLoginService!
+  private var cancellable = Set<AnyCancellable>()
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+  @MainActor 
+  override func setUp() {
+    super.setUp()
+    mockLoginService = MockLoginService()
+    viewModel = LoginViewModel(loginService: mockLoginService)
+  }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+  override func tearDown() {
+    mockLoginService = nil
+    viewModel = nil
+    super.tearDown()
+  }
+  
+  @MainActor
+  func testLoginSuccessShouldNavigateToStudentLocationPage() throws {
+    let expectation = XCTestExpectation()
+    
+    viewModel.$nextPage
+      .sink { nextPage in
+        if nextPage == .studentLocation {
+          expectation.fulfill()
         }
-    }
+      }
+      .store(in: &cancellable)
+    
+    viewModel.login(email: "email", password: "password")
+    wait(for: [expectation], timeout: 1)
+  }
+  
+  @MainActor
+  func testLoginFailureShouldSetErrorWrapper() throws {
+    mockLoginService.shouldFail = true
 
+    let expectation = XCTestExpectation()
+  
+    viewModel.$nextPage
+      .sink(
+        receiveValue: { nextPage in
+          if nextPage != nil {
+            XCTFail()
+          }
+        }
+      )
+      .store(in: &cancellable)
+    
+    viewModel.$errorWrapper
+      .sink(
+        receiveValue: { errorWrapper in
+          if let errorWrapper = errorWrapper {
+            XCTAssertEqual(errorWrapper.message, "error")
+            expectation.fulfill()
+          }
+        }
+      )
+      .store(in: &cancellable)
+    
+    viewModel.login(email: "email", password: "password")
+    wait(for: [expectation], timeout: 1)
+  }
+}
+
+class MockLoginService: LoginService {
+  var shouldFail = false
+  
+  override func getSession(username: String, password: String) async throws -> SessionResponse {
+    if shouldFail {
+      throw ServerError.technicalError("error")
+    }
+    return SessionResponse(account: SessionResponse.Account(key: "accountKey"), session: SessionResponse.Session(id: "SessionId"))
+  }
+  
+  override func getPublicUserData(session: SessionResponse) async throws -> UserDataResponse {
+    if shouldFail {
+      throw ServerError.technicalError("error")
+    }
+    return UserDataResponse(lastName: "lastName", firstName: "firstName")
+  }
 }
