@@ -1,0 +1,71 @@
+# Xcode
+.DS_Store
+*/.DS_Store
+build/
+Build/
+*.xcworkspace
+!default.xcworkspace
+xcuserdata/
+*.xcuserdatad
+*.xcscmblueprint
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+!*.xcworkspace/xcshareddata/
+OnTheMap-SwiftUI/Utilities/Constants.swift
+
+# Swift Package Manager
+.build/
+.swiftpm/xcode/
+
+# Swift Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# CocoaPods
+Pods/
+DerivedData/
+.idea/
+*.hmap
+*.ipa
+*.app.dSYM.zip
+*.app.dSYM
+*.xcarchive
+
+# Carthage
+Carthage/Build/
+Carthage/Checkouts/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Other
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xccheckout
+*.xcuserstate
+*.moved-aside
+*.xcassets
+!default.xcassets
+*.appex
+*.app
+*.log
+*.tmp
+*.lock
+*.swp
+*.swm
+*.swo
+*.komodoproject
+.xcversion
+TAGS
+.tags
+.session
+
+# SPM Packages
+Packages
