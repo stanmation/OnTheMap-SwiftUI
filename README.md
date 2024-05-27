@@ -18,8 +18,6 @@ The purpose of this repository is just to demonstrate my approach in applying MV
 
 **Screenshots:**
 
-<img src="images/loginView.png" alt="LoginView" width="200">
-<img src="images/mapView.png" alt="MapView" width="200">
-<img src="images/listView.png" alt="ListView" width="200">
+<img src="Images/loginView.png" alt="LoginView" width="200"> <img src="Images/mapView.png" alt="MapView" width="200"> <img src="Images/listView.png" alt="ListView" width="200">
 
 
