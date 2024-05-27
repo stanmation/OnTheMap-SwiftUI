@@ -24,7 +24,7 @@ class StudentLocationService: ObservableObject {
         throw ServerError.technicalError("Failed in retrieving data, please check your network connection or the data exists")
       }
       
-      let studentsResponse = try JSONDecoder().decode(StudentResponse.self, from: data)
+      let studentsResponse = try jsonDecoder.decode(StudentResponse.self, from: data)
       return studentsResponse.results
     } catch {
       print(error)

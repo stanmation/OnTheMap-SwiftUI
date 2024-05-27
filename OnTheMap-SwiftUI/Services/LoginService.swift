@@ -30,7 +30,7 @@ class LoginService: ObservableObject {
       }
       let range = 5..<data.count
       let newData = data.subdata(in: range)
-      let sessionResponse = try JSONDecoder().decode(SessionResponse.self, from: newData)
+      let sessionResponse = try jsonDecoder.decode(SessionResponse.self, from: newData)
       return sessionResponse
     } catch {
       if (error as NSError).code ==
@@ -56,7 +56,7 @@ class LoginService: ObservableObject {
       
       let range = 5..<data.count
       let newData = data.subdata(in: range)
-      let userDataResponse = try JSONDecoder().decode(UserDataResponse.self, from: newData)
+      let userDataResponse = try jsonDecoder.decode(UserDataResponse.self, from: newData)
       return userDataResponse
     } catch {
       if (error as NSError).code ==

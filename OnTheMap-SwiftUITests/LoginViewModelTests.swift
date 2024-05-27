@@ -9,7 +9,7 @@ import XCTest
 import Combine
 @testable import OnTheMap_SwiftUI
 
-final class OnTheMap_SwiftUITests: XCTestCase {
+final class LoginViewModelTests: XCTestCase {
   var viewModel: LoginViewModel!
   var mockLoginService: MockLoginService!
   private var cancellable = Set<AnyCancellable>()
@@ -28,7 +28,7 @@ final class OnTheMap_SwiftUITests: XCTestCase {
   }
   
   @MainActor
-  func testLoginSuccessShouldNavigateToStudentLocationPage() throws {
+  func testLoginSuccessShouldNavigateToStudentLocationPage() {
     let expectation = XCTestExpectation()
     
     viewModel.$nextPage
