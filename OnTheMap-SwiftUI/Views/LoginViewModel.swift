@@ -12,6 +12,7 @@ import SwiftUI
 class LoginViewModel: ObservableObject {
   @Published var errorWrapper: ErrorWrapper?
   @Published var nextPage: Page?
+  @Published var isLoading = false
   
   private let loginService: LoginService?
 
@@ -20,13 +21,17 @@ class LoginViewModel: ObservableObject {
   }
   
   func login(email: String, password: String) {
+    isLoading = true
+    
     Task {
       do {
         if let session = try await loginService?.getSession(username: email, password: password) {
           _ = try await loginService?.getPublicUserData(session: session)
+          isLoading = false
           nextPage = .studentLocation
         }
       } catch let error as ServerError {
+        isLoading = false
         errorWrapper = ErrorWrapper(serverError: error)
       }
     }

@@ -47,6 +47,10 @@ struct LoginView: View {
       }
       .padding(.vertical)
       .padding(.horizontal, 40)
+      
+      if viewModel.isLoading {
+        LoadingIndicatorView()
+      }
     }
     .alert(item: $viewModel.errorWrapper) { errorWrapper in
       Alert(title: Text(errorWrapper.title),
