@@ -7,19 +7,28 @@
 
 import SwiftUI
 
-enum Page: Hashable {
+enum Page: Hashable, Equatable {
   case login
-  case studentLocation
+  case studentLocation(loginService: LoginService?)
+  
+  static func == (lhs: Page, rhs: Page) -> Bool {
+    switch (lhs, rhs) {
+    case (.login, .login): return true
+    case (.studentLocation, .studentLocation): return true
+    default: return false
+    }
+  }
+  
+  func hash(into hasher: inout Hasher) {
+    switch self {
+    case .login, .studentLocation:
+      break
+    }
+  }
 }
 
 class Coordinator: ObservableObject {
   @Published var path = NavigationPath()
-  
-  @MainActor var loginViewModel: LoginViewModel?
-  @MainActor var loginService: LoginService?
-  
-  @MainActor var studentLocationViewModel: StudentLocationViewModel?
-  @MainActor var studentLocationService: StudentLocationService?
   
   func push(page: Page) {
     path.append(page)
@@ -29,21 +38,11 @@ class Coordinator: ObservableObject {
   func build(page: Page) -> some View {
     switch page {
     case .login:
-      LoginView(viewModel: constructLoginViewModelAndDependencies())
-    case .studentLocation:
-      StudentLocationTabView(viewModel: constructStudentLocationViewModelAndDependencies())
+      LoginView(viewModel: LoginViewModel())
+
+    case .studentLocation(let loginService):
+      StudentLocationTabView(
+        viewModel: StudentLocationViewModel(loginService: loginService ?? LoginService()))
     }
-  }
-  
-  @MainActor
-  private func constructLoginViewModelAndDependencies() -> LoginViewModel {
-    self.loginViewModel ?? LoginViewModel(loginService: LoginService())
-  }
-  
-  @MainActor
-  private func constructStudentLocationViewModelAndDependencies() -> StudentLocationViewModel {
-    studentLocationViewModel
-    ?? StudentLocationViewModel(studentLocationService: studentLocationService ?? StudentLocationService(),
-                                loginService: loginService ?? LoginService())
   }
 }

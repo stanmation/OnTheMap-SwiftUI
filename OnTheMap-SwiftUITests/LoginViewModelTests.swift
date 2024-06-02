@@ -33,8 +33,12 @@ final class LoginViewModelTests: XCTestCase {
     
     viewModel.$nextPage
       .sink { nextPage in
-        if nextPage == .studentLocation {
+        switch nextPage {
+        case .studentLocation(let loginService):
           expectation.fulfill()
+          XCTAssertNotNil(loginService)
+        default:
+          break
         }
       }
       .store(in: &cancellable)

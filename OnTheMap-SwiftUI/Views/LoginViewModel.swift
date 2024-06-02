@@ -28,7 +28,7 @@ class LoginViewModel: ObservableObject {
         if let session = try await loginService?.getSession(username: email, password: password) {
           _ = try await loginService?.getPublicUserData(session: session)
           isLoading = false
-          nextPage = .studentLocation
+          nextPage = .studentLocation(loginService: loginService)
         }
       } catch let error as ServerError {
         isLoading = false

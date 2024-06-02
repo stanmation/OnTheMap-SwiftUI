@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct LoadingIndicatorView: View {
-    var body: some View {
-        ProgressView()
-            .progressViewStyle(CircularProgressViewStyle())
-            .scaleEffect(1.5)  // Optional: Adjust the size
-            .padding()
-    }
+  var body: some View {
+    ProgressView()
+      .progressViewStyle(CircularProgressViewStyle())
+      .scaleEffect(1.5)
+      .padding()
+  }
 }
 
 struct LoadingIndicatorView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoadingIndicatorView()
-    }
+  static var previews: some View {
+    LoadingIndicatorView()
+  }
 }
