@@ -16,6 +16,11 @@ The purpose of this repository is just to demonstrate my approach in applying MV
 **Technologies used:** Swift 5, SwiftUI, MapKit, RESTful API, Swift Async Await
 <br><br>
 
+**Architecture Diagram:**
+Below is the architecture diagram between view - view model - coordinator
+<img src="Images/ArchitectureDiagram.png" alt="ArchitectureDiagram" width="600">
+<br><br>
+
 **Screenshots:**
 
 <img src="Images/loginView.png" alt="LoginView" width="200"> <img src="Images/mapView.png" alt="MapView" width="200"> <img src="Images/listView.png" alt="ListView" width="200">
